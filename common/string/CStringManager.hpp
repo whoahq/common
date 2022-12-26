@@ -3,6 +3,8 @@
 
 #include "common/string/CStringMemory.hpp"
 
+#define C_STRING_MANAGER_BUCKETS 521
+
 struct CStringElement;
 
 class CStringManager {
@@ -14,7 +16,7 @@ class CStringManager {
     static CStringManager* Get();
 
     // Member variables
-    CStringElement* m_buckets[521];
+    CStringElement* m_buckets[C_STRING_MANAGER_BUCKETS];
     CStringMemory m_memory;
 
     // Member functions

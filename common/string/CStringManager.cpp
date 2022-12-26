@@ -1,6 +1,5 @@
 #include "common/string/CStringManager.hpp"
 #include <climits>
-#include <cstdlib>
 #include <cstring>
 #include <storm/Memory.hpp>
 #include <storm/String.hpp>
@@ -23,8 +22,8 @@ CStringManager::CStringManager() {
 }
 
 char* CStringManager::Add(const char* str) {
-    uint32_t hashval = SStrHashHT(str);
-    uint32_t bucketIdx = hashval % 0x209;
+    auto hashval = SStrHashHT(str);
+    auto bucketIdx = hashval % C_STRING_MANAGER_BUCKETS;
     auto bucket = this->m_buckets[bucketIdx];
 
     if (bucket) {
