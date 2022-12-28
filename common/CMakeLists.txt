@@ -1,5 +1,6 @@
 file(GLOB COMMON_SOURCES
     "*.cpp"
+    "objectalloc/*.cpp"
     "ref/*.cpp"
     "string/*.cpp"
 )
