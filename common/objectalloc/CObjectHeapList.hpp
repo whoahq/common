@@ -21,7 +21,7 @@ class CObjectHeapList {
     uint8_t char84 = 1;
 
     // Member functions
-    int32_t New(uint32_t* index, void** a3, bool a4);
+    int32_t New(uint32_t* index, void** a3, bool zero);
 };
 
 #endif

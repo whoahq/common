@@ -1,7 +1,7 @@
 #include "common/objectalloc/CObjectHeapList.hpp"
 #include "storm/Error.hpp"
 
-int32_t CObjectHeapList::New(uint32_t* index, void** a3, bool a4) {
+int32_t CObjectHeapList::New(uint32_t* index, void** a3, bool zero) {
     CObjectHeap* heap = nullptr;
 
     if (this->uint24 < this->m_heaps.Count()) {
@@ -24,7 +24,7 @@ int32_t CObjectHeapList::New(uint32_t* index, void** a3, bool a4) {
         }
     }
 
-    if (!heap->New(this->m_objSize, this->m_objsPerBlock, index, this->m_heapName, a3, a4)) {
+    if (!heap->New(this->m_objSize, this->m_objsPerBlock, index, this->m_heapName, a3, zero)) {
         return 0;
     }
 

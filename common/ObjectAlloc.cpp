@@ -3,7 +3,7 @@
 #include <storm/Error.hpp>
 #include <storm/String.hpp>
 
-int32_t ObjectAlloc(uint32_t heapId, uint32_t* memHandle, void** objectPtr, bool a4) {
+int32_t ObjectAlloc(uint32_t heapId, uint32_t* memHandle, void** objectPtr, bool zero) {
     STORM_ASSERT(memHandle);
 
     *memHandle = 0;
@@ -15,7 +15,7 @@ int32_t ObjectAlloc(uint32_t heapId, uint32_t* memHandle, void** objectPtr, bool
     uint32_t index;
     void* object;
 
-    if (globals->objects[heapId].New(&index, &object, a4)) {
+    if (globals->objects[heapId].New(&index, &object, zero)) {
         if (objectPtr) {
             *objectPtr = object;
         }
