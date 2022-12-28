@@ -1,7 +1,7 @@
 #ifndef COMMON_STRING_RC_STRING_HPP
 #define COMMON_STRING_RC_STRING_HPP
 
-#include "common/ref/TRefCnt.hpp"
+#include "common/Ref.hpp"
 #include <cstdlib>
 
 class RCString : public TRefCnt {
