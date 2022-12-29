@@ -3,6 +3,7 @@ file(GLOB COMMON_SOURCES
     "objectalloc/*.cpp"
     "ref/*.cpp"
     "string/*.cpp"
+    "thread/*.cpp"
 )
 
 add_library(common STATIC
