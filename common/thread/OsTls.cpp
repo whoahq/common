@@ -1,4 +1,4 @@
-#include "common/thread/Tls.hpp"
+#include "common/thread/OsTls.hpp"
 #include <storm/Thread.hpp>
 
 #if defined(WHOA_SYSTEM_WIN)

@@ -1,5 +1,5 @@
-#ifndef COMMON_THREAD_TLS_HPP
-#define COMMON_THREAD_TLS_HPP
+#ifndef COMMON_THREAD_OS_TLS_HPP
+#define COMMON_THREAD_OS_TLS_HPP
 
 #include <cstdint>
 
