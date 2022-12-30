@@ -5,6 +5,7 @@ file(GLOB COMMON_SOURCES
     "ref/*.cpp"
     "string/*.cpp"
     "thread/*.cpp"
+    "xml/*.cpp"
 )
 
 add_library(common STATIC
@@ -18,5 +19,6 @@ target_include_directories(common
 
 target_link_libraries(common
     PUBLIC
+        expat-2.0
         storm
 )
