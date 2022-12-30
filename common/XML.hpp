@@ -1,8 +1,8 @@
 #ifndef COMMON_XML_HPP
 #define COMMON_XML_HPP
 
-#include "xml/XMLAttribute.hpp"
-#include "xml/XMLNode.hpp"
-#include "xml/XMLTree.hpp"
+#include "common/xml/XMLAttribute.hpp"
+#include "common/xml/XMLNode.hpp"
+#include "common/xml/XMLTree.hpp"
 
 #endif
