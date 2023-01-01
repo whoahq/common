@@ -11,4 +11,7 @@ class TSingletonInstanceId : public TInstanceId<T> {
     static TInstanceIdTable<T, offset> s_idTable;
 };
 
+template <class T, size_t offset>
+TInstanceIdTable<T, offset> TSingletonInstanceId<T, offset>::s_idTable;
+
 #endif
