@@ -1,6 +1,7 @@
 file(GLOB COMMON_SOURCES
     "*.cpp"
     "datastore/*.cpp"
+    "mempool/*.cpp"
     "objectalloc/*.cpp"
     "ref/*.cpp"
     "string/*.cpp"
