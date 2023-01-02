@@ -1,5 +1,6 @@
 file(GLOB COMMON_SOURCES
     "*.cpp"
+    "datamgr/*.cpp"
     "datastore/*.cpp"
     "mempool/*.cpp"
     "objectalloc/*.cpp"
@@ -22,4 +23,5 @@ target_link_libraries(common
     PUBLIC
         expat-2.0
         storm
+        tempest
 )
