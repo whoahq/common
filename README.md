@@ -1,5 +1,7 @@
 # Common
 
+[![Push](https://github.com/whoahq/common/workflows/Push/badge.svg)](https://github.com/whoahq/common/actions/workflows/push.yml)
+
 Common is an unofficial open source implementation of common utility classes
 and routines found in World of Warcraft: Wrath of the Lich King circa 2010.
 These utility classes and routines were not part of the standard libraries
