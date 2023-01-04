@@ -25,3 +25,8 @@ target_link_libraries(common
         storm
         tempest
 )
+
+if(CODE_COVERAGE)
+    target_compile_options(common PRIVATE --coverage)
+    target_link_options(common PUBLIC --coverage)
+endif()

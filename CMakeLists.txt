@@ -20,6 +20,8 @@ set(CMAKE_CXX_STANDARD 11)
 
 include(lib/system/cmake/system.cmake)
 
+option(CODE_COVERAGE "Enable code coverage instrumentation" OFF)
+
 add_subdirectory(lib)
 add_subdirectory(common)
 add_subdirectory(test)
