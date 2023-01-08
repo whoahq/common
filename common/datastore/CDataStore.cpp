@@ -45,12 +45,14 @@ void CDataStore::Finalize() {
 CDataStore& CDataStore::Get(uint8_t& val) {
     STORM_ASSERT(this->IsFinal());
 
-    if (this->FetchRead(this->m_read, 1)) {
+    auto bytes = sizeof(val);
+
+    if (this->FetchRead(this->m_read, bytes)) {
         auto ofs = this->m_read - this->m_base;
         auto ptr = &this->m_data[ofs];
         val = *reinterpret_cast<uint8_t*>(ptr);
 
-        this->m_read += sizeof(val);
+        this->m_read += bytes;
     }
 
     return *this;
