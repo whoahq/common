@@ -75,12 +75,13 @@ void CDataStore::GetBufferParams(const void** data, uint32_t* size, uint32_t* al
 CDataStore& CDataStore::GetDataInSitu(void*& val, uint32_t bytes) {
     STORM_ASSERT(this->IsFinal());
 
-    // TODO FetchRead
+    if (this->FetchRead(this->m_read, bytes)) {
+        auto ofs = this->m_read - this->m_base;
+        auto ptr = &this->m_data[ofs];
+        val = ptr;
 
-    auto ofs = this->m_read - this->m_base;
-    val = &this->m_data[ofs];
-
-    this->m_read += bytes;
+        this->m_read += bytes;
+    }
 
     return *this;
 }
