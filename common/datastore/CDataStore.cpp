@@ -8,6 +8,22 @@ void CDataStore::DetachBuffer(void** data, uint32_t* size, uint32_t* alloc) {
     // TODO
 }
 
+int32_t CDataStore::FetchRead(uint32_t pos, uint32_t bytes) {
+    if (pos + bytes <= this->m_size) {
+        if (pos >= this->m_base && pos + bytes <= this->m_base + this->m_alloc) {
+            return 1;
+        }
+
+        if (this->InternalFetchRead(pos, bytes, this->m_data, this->m_base, this->m_alloc)) {
+            return 1;
+        }
+    }
+
+    this->m_read = this->m_size + 1;
+
+    return 0;
+}
+
 int32_t CDataStore::FetchWrite(uint32_t pos, uint32_t bytes, const char* fileName, int32_t lineNumber) {
     if (pos >= this->m_base && pos + bytes <= this->m_base + this->m_alloc) {
         return 1;
@@ -24,6 +40,20 @@ void CDataStore::Finalize() {
     STORM_ASSERT(!this->IsFinal());
 
     this->m_read = 0;
+}
+
+CDataStore& CDataStore::Get(uint8_t& val) {
+    STORM_ASSERT(this->IsFinal());
+
+    if (this->FetchRead(this->m_read, 1)) {
+        auto ofs = this->m_read - this->m_base;
+        auto ptr = &this->m_data[ofs];
+        val = *reinterpret_cast<uint8_t*>(ptr);
+
+        this->m_read += sizeof(val);
+    }
+
+    return *this;
 }
 
 void CDataStore::GetBufferParams(const void** data, uint32_t* size, uint32_t* alloc) const {
