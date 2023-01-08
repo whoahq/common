@@ -31,11 +31,13 @@ class CDataStore {
     int32_t FetchWrite(uint32_t pos, uint32_t bytes, const char* fileName, int32_t lineNumber);
     CDataStore& Get(uint8_t& val);
     CDataStore& Get(uint32_t& val);
+    CDataStore& Get(uint64_t& val);
     CDataStore& GetDataInSitu(void*& val, uint32_t bytes);
     int32_t IsFinal();
     CDataStore& Put(uint8_t val);
     CDataStore& Put(uint16_t val);
     CDataStore& Put(uint32_t val);
+    CDataStore& Put(uint64_t val);
     CDataStore& PutArray(const uint8_t* val, uint32_t count);
     CDataStore& PutData(const void* val, uint32_t bytes);
     CDataStore& Set(uint32_t pos, uint16_t val);

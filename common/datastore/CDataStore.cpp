@@ -74,6 +74,22 @@ CDataStore& CDataStore::Get(uint32_t& val) {
     return *this;
 }
 
+CDataStore& CDataStore::Get(uint64_t& val) {
+    STORM_ASSERT(this->IsFinal());
+
+    auto bytes = sizeof(val);
+
+    if (this->FetchRead(this->m_read, bytes)) {
+        auto ofs = this->m_read - this->m_base;
+        auto ptr = &this->m_data[ofs];
+        val = *reinterpret_cast<uint64_t*>(ptr);
+
+        this->m_read += bytes;
+    }
+
+    return *this;
+}
+
 void CDataStore::GetBufferParams(const void** data, uint32_t* size, uint32_t* alloc) const {
     if (data) {
         *data = this->m_data;
@@ -177,6 +193,20 @@ CDataStore& CDataStore::Put(uint32_t val) {
     auto ofs = this->m_size - this->m_base;
     auto ptr = &this->m_data[ofs];
     *reinterpret_cast<uint32_t*>(ptr) = val;
+
+    this->m_size += sizeof(val);
+
+    return *this;
+}
+
+CDataStore& CDataStore::Put(uint64_t val) {
+    STORM_ASSERT(!this->IsFinal());
+
+    this->FetchWrite(this->m_size, sizeof(val), nullptr, 0);
+
+    auto ofs = this->m_size - this->m_base;
+    auto ptr = &this->m_data[ofs];
+    *reinterpret_cast<uint64_t*>(ptr) = val;
 
     this->m_size += sizeof(val);
 
