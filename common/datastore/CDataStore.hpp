@@ -41,6 +41,7 @@ class CDataStore {
     CDataStore& PutArray(const uint8_t* val, uint32_t count);
     CDataStore& PutData(const void* val, uint32_t bytes);
     CDataStore& Set(uint32_t pos, uint16_t val);
+    bool Sub8CBBF0(uint32_t a2);
 };
 
 #endif
