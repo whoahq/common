@@ -1,4 +1,5 @@
 #include "common/SHA1.hpp"
+#include <cstdlib>
 #include <cstring>
 
 #define rol(value, bits) (((value) << (bits)) | ((value) >> (32 - (bits))))
@@ -59,6 +60,60 @@ void SHA1_Init(SHA1_CONTEXT* context) {
     context->state[4] = 0xC3D2E1F0;
     context->count[0] = 0;
     context->count[1] = 0;
+}
+
+uint8_t* SHA1_InterleaveHash(uint8_t* const digest, const uint8_t* data, uint32_t len) {
+    // Terminate data at first null
+    uint32_t l;
+    for (l = len; l; l--) {
+        if (*data) {
+            break;
+        }
+
+        data++;
+    }
+
+    if (l & 1) {
+        data++;
+        l--;
+    }
+
+    SHA1_CONTEXT ctx;
+    uint8_t scratchDigest[SHA1_DIGEST_SIZE];
+
+    auto scratchLen = l / 2;
+    auto scratch = static_cast<uint8_t*>(alloca(scratchLen));
+    if (!scratch) {
+        return nullptr;
+    }
+
+    // Even half
+    for (uint32_t i = 0; i < scratchLen; i++) {
+        scratch[i] = data[i * 2];
+    }
+
+    SHA1_Init(&ctx);
+    SHA1_Update(&ctx, scratch, scratchLen);
+    SHA1_Final(scratchDigest, &ctx);
+
+    for (uint32_t i = 0; i < sizeof(scratchDigest); i++) {
+        digest[i * 2] = scratchDigest[i];
+    }
+
+    // Odd half
+    for (uint32_t i = 0; i < scratchLen; i++) {
+        scratch[i] = data[i * 2 + 1];
+    }
+
+    SHA1_Init(&ctx);
+    SHA1_Update(&ctx, scratch, scratchLen);
+    SHA1_Final(scratchDigest, &ctx);
+
+    for (uint32_t i = 0; i < sizeof(scratchDigest); i++) {
+        digest[i * 2 + 1] = scratchDigest[i];
+    }
+
+    return digest;
 }
 
 void SHA1_Transform(uint32_t state[5], const uint8_t buffer[64]) {
