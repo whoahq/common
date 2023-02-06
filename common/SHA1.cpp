@@ -2,6 +2,10 @@
 #include <cstdlib>
 #include <cstring>
 
+#if defined(WHOA_SYSTEM_WIN)
+#include <malloc.h>
+#endif
+
 #define rol(value, bits) (((value) << (bits)) | ((value) >> (32 - (bits))))
 
 #if defined(__BIG_ENDIAN__)
