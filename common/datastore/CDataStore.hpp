@@ -30,6 +30,7 @@ class CDataStore {
     int32_t FetchRead(uint32_t pos, uint32_t bytes);
     int32_t FetchWrite(uint32_t pos, uint32_t bytes, const char* fileName, int32_t lineNumber);
     CDataStore& Get(uint8_t& val);
+    CDataStore& Get(uint16_t& val);
     CDataStore& Get(uint32_t& val);
     CDataStore& Get(uint64_t& val);
     CDataStore& GetDataInSitu(void*& val, uint32_t bytes);

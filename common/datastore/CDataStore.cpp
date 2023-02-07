@@ -58,6 +58,22 @@ CDataStore& CDataStore::Get(uint8_t& val) {
     return *this;
 }
 
+CDataStore& CDataStore::Get(uint16_t& val) {
+    STORM_ASSERT(this->IsFinal());
+
+    auto bytes = sizeof(val);
+
+    if (this->FetchRead(this->m_read, bytes)) {
+        auto ofs = this->m_read - this->m_base;
+        auto ptr = &this->m_data[ofs];
+        val = *reinterpret_cast<uint16_t*>(ptr);
+
+        this->m_read += bytes;
+    }
+
+    return *this;
+}
+
 CDataStore& CDataStore::Get(uint32_t& val) {
     STORM_ASSERT(this->IsFinal());
 

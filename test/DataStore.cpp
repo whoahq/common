@@ -21,6 +21,18 @@ TEST_CASE("CDataStore::Get", "[datastore]") {
         REQUIRE(readVal == writeVal);
     }
 
+    SECTION("gets uint16_t") {
+        uint16_t writeVal = 0x1234;
+        uint16_t readVal = -1;
+
+        CDataStore msg;
+        msg.Put(writeVal);
+        msg.Finalize();
+        msg.Get(readVal);
+
+        REQUIRE(readVal == writeVal);
+    }
+
     SECTION("gets uint32_t") {
         uint32_t writeVal = 0x12345678;
         uint32_t readVal = 0x12345678;
