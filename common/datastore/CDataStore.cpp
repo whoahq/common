@@ -159,6 +159,10 @@ CDataStore& CDataStore::GetString(char* val, uint32_t maxChars) {
     STORM_ASSERT(this->IsFinal());
     STORM_ASSERT(val || maxChars == 0);
 
+    if (maxChars == 0) {
+        return *this;
+    }
+
     if (this->FetchRead(this->m_read, 1)) {
         auto ofs = this->m_read - this->m_base;
         auto ptr = &this->m_data[ofs];
@@ -168,7 +172,7 @@ CDataStore& CDataStore::GetString(char* val, uint32_t maxChars) {
             val[i] = *reinterpret_cast<char*>(&ptr[i]);
         }
 
-        this->m_read += i;
+        this->m_read += i == maxChars ? i : i + 1;
     }
 
     return *this;
@@ -316,7 +320,7 @@ CDataStore& CDataStore::PutData(const void* val, uint32_t bytes) {
 
 CDataStore& CDataStore::PutString(const char* val) {
     auto len = SStrLen(val);
-    return this->PutArray(reinterpret_cast<const uint8_t*>(val), len);
+    return this->PutArray(reinterpret_cast<const uint8_t*>(val), len + 1);
 }
 
 void CDataStore::Reset() {
