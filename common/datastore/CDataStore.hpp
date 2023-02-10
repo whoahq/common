@@ -35,6 +35,7 @@ class CDataStore {
     CDataStore& Get(uint64_t& val);
     CDataStore& Get(float& val);
     CDataStore& GetDataInSitu(void*& val, uint32_t bytes);
+    CDataStore& GetString(char* val, uint32_t maxChars);
     int32_t IsFinal();
     CDataStore& Put(uint8_t val);
     CDataStore& Put(uint16_t val);
@@ -43,6 +44,7 @@ class CDataStore {
     CDataStore& Put(float val);
     CDataStore& PutArray(const uint8_t* val, uint32_t count);
     CDataStore& PutData(const void* val, uint32_t bytes);
+    CDataStore& PutString(const char* val);
     CDataStore& Set(uint32_t pos, uint16_t val);
     bool Sub8CBBF0(uint32_t a2);
 };

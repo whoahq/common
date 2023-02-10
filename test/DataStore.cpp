@@ -1,5 +1,6 @@
 #include "common/DataStore.hpp"
 #include "test/Test.hpp"
+#include <storm/String.hpp>
 
 TEST_CASE("CDataStore::CDataStore", "[datastore]") {
     SECTION("constructs new data store") {
@@ -67,5 +68,29 @@ TEST_CASE("CDataStore::Get", "[datastore]") {
         msg.Get(readVal);
 
         REQUIRE(readVal == writeVal);
+    }
+
+    SECTION("gets string") {
+        const char* writeVal = "foobar";
+        char readVal[7] = "barfoo";
+
+        CDataStore msg;
+        msg.PutString(writeVal);
+        msg.Finalize();
+        msg.GetString(readVal, sizeof(readVal));
+
+        REQUIRE(SStrCmp(readVal, writeVal, STORM_MAX_STR) == 0);
+    }
+
+    SECTION("gets string honoring maxchars") {
+        const char* writeVal = "foobar";
+        char readVal[7] = "bar";
+
+        CDataStore msg;
+        msg.PutString(writeVal);
+        msg.Finalize();
+        msg.GetString(readVal, 3);
+
+        REQUIRE(SStrCmp(readVal, "foo", STORM_MAX_STR) == 0);
     }
 }

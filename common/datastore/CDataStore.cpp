@@ -3,6 +3,7 @@
 #include <cstring>
 #include <storm/Error.hpp>
 #include <storm/Memory.hpp>
+#include <storm/String.hpp>
 
 void CDataStore::DetachBuffer(void** data, uint32_t* size, uint32_t* alloc) {
     // TODO
@@ -154,6 +155,25 @@ uint32_t CDataStore::GetHeaderSpace() {
     return 0;
 }
 
+CDataStore& CDataStore::GetString(char* val, uint32_t maxChars) {
+    STORM_ASSERT(this->IsFinal());
+    STORM_ASSERT(val || maxChars == 0);
+
+    if (this->FetchRead(this->m_read, 1)) {
+        auto ofs = this->m_read - this->m_base;
+        auto ptr = &this->m_data[ofs];
+
+        uint32_t i;
+        for (i = 0; ptr[i] != '\0' && i < maxChars; i++) {
+            val[i] = *reinterpret_cast<char*>(&ptr[i]);
+        }
+
+        this->m_read += i;
+    }
+
+    return *this;
+}
+
 void CDataStore::InternalDestroy(uint8_t*& data, uint32_t& base, uint32_t& alloc) {
     if (alloc && data) {
         SMemFree(data, __FILE__, __LINE__, 0);
@@ -292,6 +312,11 @@ CDataStore& CDataStore::PutArray(const uint8_t* val, uint32_t count) {
 
 CDataStore& CDataStore::PutData(const void* val, uint32_t bytes) {
     return this->PutArray(static_cast<const uint8_t*>(val), bytes);
+}
+
+CDataStore& CDataStore::PutString(const char* val) {
+    auto len = SStrLen(val);
+    return this->PutArray(reinterpret_cast<const uint8_t*>(val), len);
 }
 
 void CDataStore::Reset() {
