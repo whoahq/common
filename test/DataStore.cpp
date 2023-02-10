@@ -56,4 +56,16 @@ TEST_CASE("CDataStore::Get", "[datastore]") {
 
         REQUIRE(readVal == writeVal);
     }
+
+    SECTION("gets float") {
+        float writeVal = 1.5f;
+        float readVal = -1.0f;
+
+        CDataStore msg;
+        msg.Put(writeVal);
+        msg.Finalize();
+        msg.Get(readVal);
+
+        REQUIRE(readVal == writeVal);
+    }
 }
