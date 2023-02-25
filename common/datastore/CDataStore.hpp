@@ -17,8 +17,7 @@ class CDataStore {
     virtual void InternalDestroy(uint8_t*& data, uint32_t& base, uint32_t& alloc);
     virtual int32_t InternalFetchRead(uint32_t pos, uint32_t bytes, uint8_t*& data, uint32_t& base, uint32_t& alloc);
     virtual int32_t InternalFetchWrite(uint32_t pos, uint32_t bytes, uint8_t*& data, uint32_t& base, uint32_t& alloc, const char* fileName, int32_t lineNumber);
-    // TODO
-    // virtual ~CDataStore();
+    virtual ~CDataStore();
     virtual int32_t IsRead() const;
     virtual void Reset();
     virtual void Finalize();
@@ -27,6 +26,7 @@ class CDataStore {
     virtual uint32_t GetHeaderSpace();
 
     // Member functions
+    void Destroy();
     int32_t FetchRead(uint32_t pos, uint32_t bytes);
     int32_t FetchWrite(uint32_t pos, uint32_t bytes, const char* fileName, int32_t lineNumber);
     CDataStore& Get(uint8_t& val);

@@ -5,6 +5,16 @@
 #include <storm/Memory.hpp>
 #include <storm/String.hpp>
 
+CDataStore::~CDataStore() {
+    this->Destroy();
+}
+
+void CDataStore::Destroy() {
+    if (this->m_alloc != -1) {
+        this->InternalDestroy(this->m_data, this->m_base, this->m_alloc);
+    }
+}
+
 void CDataStore::DetachBuffer(void** data, uint32_t* size, uint32_t* alloc) {
     // TODO
 }
