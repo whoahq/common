@@ -136,3 +136,10 @@ TEST_CASE("CDataStore::Size", "[datastore]") {
         REQUIRE(msg.Size() == 3);
     }
 }
+
+TEST_CASE("CDataStoreCache<1024>::CDataStoreCache<1024>", "[datastore]") {
+    SECTION("constructs new data store") {
+        CDataStoreCache<1024> msg;
+        SUCCEED();
+    }
+}
