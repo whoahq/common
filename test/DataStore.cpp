@@ -108,3 +108,31 @@ TEST_CASE("CDataStore::Get", "[datastore]") {
         REQUIRE(msg.m_read == 0);
     }
 }
+
+TEST_CASE("CDataStore::SetSize", "[datastore]") {
+    SECTION("sets size") {
+        uint8_t writeVal = 8;
+
+        CDataStore msg;
+        msg.Put(writeVal);
+
+        CHECK(msg.Size() == 1);
+
+        msg.SetSize(0);
+
+        CHECK(msg.Size() == 0);
+    }
+}
+
+TEST_CASE("CDataStore::Size", "[datastore]") {
+    SECTION("gets size") {
+        uint8_t writeVal1 = 8;
+        uint16_t writeVal2 = 9;
+
+        CDataStore msg;
+        msg.Put(writeVal1);
+        msg.Put(writeVal2);
+
+        REQUIRE(msg.Size() == 3);
+    }
+}
