@@ -15,6 +15,10 @@ void RCString::Copy(const char* source) {
     }
 }
 
+void RCString::Copy(const RCString& source) {
+    this->Copy(source.GetString());
+}
+
 void RCString::Get(char* buf, size_t bufSize) const {
     const char* str = this->GetString();
 
