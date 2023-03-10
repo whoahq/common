@@ -9,6 +9,14 @@ TEST_CASE("RCString::Copy", "[string]") {
         rcStr.Copy(str);
         REQUIRE(!SStrCmp(str, rcStr.GetString(), STORM_MAX_STR));
     }
+
+    SECTION("copies source RCString") {
+        RCString rcStr1;
+        rcStr1.Copy("foo");
+        RCString rcStr2;
+        rcStr2.Copy(rcStr1);
+        REQUIRE(!SStrCmp(rcStr1.GetString(), rcStr2.GetString(), STORM_MAX_STR));
+    }
 }
 
 TEST_CASE("RCString::GetString", "[string]") {
