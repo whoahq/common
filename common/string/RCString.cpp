@@ -36,3 +36,7 @@ const char* RCString::GetString() const {
         return nullptr;
     }
 }
+
+RCString::operator const char*() const {
+    return this->GetString();
+}
