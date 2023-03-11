@@ -36,3 +36,7 @@ const char* RCString::GetString() const {
         return nullptr;
     }
 }
+
+void RCString::operator=(const char* rval) {
+    this->Copy(rval);
+}
