@@ -15,6 +15,11 @@ class RCString : public TRefCnt {
     void Copy(const RCString& source);
     void Get(char* buf, size_t bufSize) const;
     const char* GetString() const;
+<<<<<<< 9a5e71de2207be9368428a3bff147b9bcd51d94a
+=======
+    void operator=(const char* rval);
+    operator const char*() const;
+>>>>>>> feat(string): add RCString::operator=(const char*) method
 };
 
 #endif

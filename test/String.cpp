@@ -40,3 +40,24 @@ TEST_CASE("RCString::GetString", "[string]") {
         REQUIRE(rcStr1.GetString() != rcStr2.GetString());
     }
 }
+<<<<<<< 9a5e71de2207be9368428a3bff147b9bcd51d94a
+=======
+
+TEST_CASE("RCString::operator const char*", "[string]") {
+    SECTION("casts a RCString object to a const char*") {
+        auto str = "foo";
+        RCString rcStr;
+        rcStr.Copy(str);
+        REQUIRE(!SStrCmp(str, (const char*)rcStr, STORM_MAX_STR));
+    }
+}
+
+TEST_CASE("RCString::operator=", "string") {
+    SECTION("assigns the value of const char* rval to the calling RCString object") {
+        auto str = "foo";
+        RCString rcStr;
+        rcStr = str;
+        REQUIRE(!SStrCmp(str, (const char*)rcStr, STORM_MAX_STR));
+    }
+}
+>>>>>>> feat(string): add RCString::operator=(const char*) method
