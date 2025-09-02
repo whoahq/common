@@ -3,8 +3,9 @@
 #include <storm/Error.hpp>
 
 HOBJECT HandleCreate(CHandleObject* ptr) {
-    STORM_ASSERT(ptr);
-    STORM_VALIDATE(ptr, ERROR_INVALID_PARAMETER, nullptr);
+    STORM_VALIDATE_BEGIN;
+    STORM_VALIDATE(ptr);
+    STORM_VALIDATE_END;
 
     ptr->m_refcount++;
     return reinterpret_cast<HOBJECT>(ptr);
