@@ -48,6 +48,7 @@ class CDataStore {
     CDataStore& Set(uint32_t pos, uint16_t val);
     void SetSize(uint32_t size);
     uint32_t Size();
+    uint32_t Tell();
     bool Sub8CBBF0(uint32_t a2);
 };
 
