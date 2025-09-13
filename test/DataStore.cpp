@@ -93,7 +93,7 @@ TEST_CASE("CDataStore::Get", "[datastore]") {
         msg.GetString(readVal, 3);
 
         REQUIRE(SStrCmp(readVal, "foo", STORM_MAX_STR) == 0);
-        REQUIRE(msg.m_read == 3);
+        REQUIRE(msg.Tell() == 3);
     }
 
     SECTION("gets string honoring maxchars of 0") {
@@ -105,7 +105,7 @@ TEST_CASE("CDataStore::Get", "[datastore]") {
         msg.Finalize();
         msg.GetString(readVal, 0);
 
-        REQUIRE(msg.m_read == 0);
+        REQUIRE(msg.Tell() == 0);
     }
 }
 

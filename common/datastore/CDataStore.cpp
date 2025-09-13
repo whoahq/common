@@ -188,6 +188,12 @@ CDataStore& CDataStore::GetString(char* val, uint32_t maxChars) {
     return *this;
 }
 
+void CDataStore::Initialize() {
+    if (this->m_alloc != -1) {
+        this->InternalInitialize(this->m_data, this->m_base, this->m_alloc);
+    }
+}
+
 void CDataStore::InternalDestroy(uint8_t*& data, uint32_t& base, uint32_t& alloc) {
     if (alloc && data) {
         SMemFree(data, __FILE__, __LINE__, 0);
