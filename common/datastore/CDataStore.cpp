@@ -219,6 +219,10 @@ int32_t CDataStore::IsFinal() {
     return this->m_read != -1;
 }
 
+int32_t CDataStore::IsValid() {
+    return this->m_read <= this->m_size;
+}
+
 int32_t CDataStore::IsRead() const {
     return this->m_size == this->m_read;
 }

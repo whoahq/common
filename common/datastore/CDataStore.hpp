@@ -37,6 +37,7 @@ class CDataStore {
     CDataStore& GetDataInSitu(void*& val, uint32_t bytes);
     CDataStore& GetString(char* val, uint32_t maxChars);
     int32_t IsFinal();
+    int32_t IsValid();
     CDataStore& Put(uint8_t val);
     CDataStore& Put(uint16_t val);
     CDataStore& Put(uint32_t val);
