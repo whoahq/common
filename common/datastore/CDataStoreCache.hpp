@@ -18,21 +18,13 @@ class CDataStoreCache : public CDataStore {
 
     // Member functions
     CDataStoreCache() {
-        this->InternalInitialize(this->m_data, this->m_base, this->m_alloc);
+        this->Initialize();
     }
-    void Destroy();
 };
 
 template <size_t size>
 CDataStoreCache<size>::~CDataStoreCache() {
     this->Destroy();
-}
-
-template <size_t size>
-void CDataStoreCache<size>::Destroy() {
-    if (this->m_alloc != -1) {
-        this->InternalDestroy(this->m_data, this->m_base, this->m_alloc);
-    }
 }
 
 template <size_t size>

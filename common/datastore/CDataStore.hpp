@@ -5,13 +5,6 @@
 
 class CDataStore {
     public:
-    // Member variables
-    uint8_t* m_data = nullptr;
-    uint32_t m_base = 0;
-    uint32_t m_alloc = 0;
-    uint32_t m_size = 0;
-    uint32_t m_read = -1;
-
     // Virtual member functions
     virtual void InternalInitialize(uint8_t*& data, uint32_t& base, uint32_t& alloc) {};
     virtual void InternalDestroy(uint8_t*& data, uint32_t& base, uint32_t& alloc);
@@ -36,6 +29,7 @@ class CDataStore {
     CDataStore& Get(float& val);
     CDataStore& GetDataInSitu(void*& val, uint32_t bytes);
     CDataStore& GetString(char* val, uint32_t maxChars);
+    void Initialize();
     int32_t IsFinal();
     int32_t IsValid();
     CDataStore& Put(uint8_t val);
@@ -51,6 +45,14 @@ class CDataStore {
     uint32_t Size();
     uint32_t Tell();
     bool Sub8CBBF0(uint32_t a2);
+
+    private:
+    // Member variables
+    uint8_t* m_data = nullptr;
+    uint32_t m_base = 0;
+    uint32_t m_alloc = 0;
+    uint32_t m_size = 0;
+    uint32_t m_read = -1;
 };
 
 #endif
