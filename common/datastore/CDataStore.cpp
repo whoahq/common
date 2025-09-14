@@ -10,7 +10,7 @@ CDataStore::~CDataStore() {
 }
 
 void CDataStore::Destroy() {
-    if (this->m_alloc != -1) {
+    if (!this->IsReadOnly()) {
         this->InternalDestroy(this->m_data, this->m_base, this->m_alloc);
     }
 }
@@ -189,7 +189,7 @@ CDataStore& CDataStore::GetString(char* val, uint32_t maxChars) {
 }
 
 void CDataStore::Initialize() {
-    if (this->m_alloc != -1) {
+    if (!this->IsReadOnly()) {
         this->InternalInitialize(this->m_data, this->m_base, this->m_alloc);
     }
 }
@@ -223,6 +223,10 @@ int32_t CDataStore::InternalFetchWrite(uint32_t pos, uint32_t bytes, uint8_t*& d
 
 int32_t CDataStore::IsFinal() {
     return this->m_read != -1;
+}
+
+int32_t CDataStore::IsReadOnly() const {
+    return this->m_alloc == -1;
 }
 
 int32_t CDataStore::IsValid() {
@@ -344,7 +348,7 @@ CDataStore& CDataStore::PutString(const char* val) {
 }
 
 void CDataStore::Reset() {
-    if (this->m_alloc == -1) {
+    if (this->IsReadOnly()) {
         this->m_data = nullptr;
         this->m_alloc = 0;
     }
