@@ -221,7 +221,7 @@ int32_t CDataStore::InternalFetchWrite(uint32_t pos, uint32_t bytes, uint8_t*& d
     return 1;
 }
 
-int32_t CDataStore::IsFinal() {
+int32_t CDataStore::IsFinal() const {
     return this->m_read != -1;
 }
 
@@ -229,7 +229,7 @@ int32_t CDataStore::IsReadOnly() const {
     return this->m_alloc == -1;
 }
 
-int32_t CDataStore::IsValid() {
+int32_t CDataStore::IsValid() const {
     return this->m_read <= this->m_size;
 }
 
