@@ -137,6 +137,32 @@ TEST_CASE("CDataStore::Size", "[datastore]") {
     }
 }
 
+TEST_CASE("CDataStore::Tell", "[datastore]") {
+    SECTION("gets bytes read") {
+        CDataStore msg;
+
+        uint8_t writeVal1 = 8;
+        msg.Put(writeVal1);
+
+        uint16_t writeVal2 = 9;
+        msg.Put(writeVal2);
+
+        msg.Finalize();
+
+        CHECK(msg.Tell() == 0);
+
+        uint8_t readVal1;
+        msg.Get(readVal1);
+
+        CHECK(msg.Tell() == 1);
+
+        uint16_t readVal2;
+        msg.Get(readVal2);
+
+        CHECK(msg.Tell() == 3);
+    }
+}
+
 TEST_CASE("CDataStoreCache<1024>::CDataStoreCache<1024>", "[datastore]") {
     SECTION("constructs new data store") {
         CDataStoreCache<1024> msg;
