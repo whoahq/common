@@ -374,11 +374,11 @@ void CDataStore::SetSize(uint32_t size) {
     this->m_size = size;
 }
 
-uint32_t CDataStore::Size() {
+uint32_t CDataStore::Size() const {
     return this->m_size;
 }
 
-uint32_t CDataStore::Tell() {
+uint32_t CDataStore::Tell() const {
     return this->m_read;
 }
 
