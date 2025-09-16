@@ -40,3 +40,12 @@ TEST_CASE("RCString::GetString", "[string]") {
         REQUIRE(rcStr1.GetString() != rcStr2.GetString());
     }
 }
+
+TEST_CASE("RCString::operator=", "string") {
+    SECTION("assigns the value of const char* rval to the calling RCString object") {
+        auto str = "foo";
+        RCString rcStr;
+        rcStr = str;
+        REQUIRE(!SStrCmp(str, rcStr.GetString(), STORM_MAX_STR));
+    }
+}
