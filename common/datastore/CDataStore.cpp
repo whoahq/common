@@ -381,6 +381,12 @@ void CDataStore::Reset() {
     this->m_read = -1;
 }
 
+void CDataStore::Seek(uint32_t pos) {
+    STORM_ASSERT(this->IsFinal());
+
+    this->m_read = pos;
+}
+
 CDataStore& CDataStore::Set(uint32_t pos, uint16_t val) {
     STORM_ASSERT(!this->IsFinal());
     STORM_ASSERT(pos + sizeof(val) <= this->m_size);
