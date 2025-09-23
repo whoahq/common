@@ -5,6 +5,30 @@
 #include <storm/Memory.hpp>
 #include <storm/String.hpp>
 
+CDataStore::CDataStore() {
+    this->m_data = nullptr;
+    this->m_base = 0;
+    this->m_alloc = 0;
+    this->m_size = 0;
+    this->m_read = -1;
+}
+
+CDataStore::CDataStore(uint8_t* data, uint32_t size) {
+    this->m_data = data;
+    this->m_base = 0;
+    this->m_alloc = -1;
+    this->m_size = size;
+    this->m_read = 0;
+}
+
+CDataStore::CDataStore(uint8_t* data, uint32_t size, uint32_t alloc) {
+    this->m_data = data;
+    this->m_base = 0;
+    this->m_alloc = alloc;
+    this->m_size = size;
+    this->m_read = -1;
+}
+
 CDataStore::~CDataStore() {
     this->Destroy();
 }

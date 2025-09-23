@@ -19,6 +19,9 @@ class CDataStore {
     virtual uint32_t GetHeaderSpace();
 
     // Member functions
+    CDataStore();
+    CDataStore(uint8_t* data, uint32_t size);
+    CDataStore(uint8_t* data, uint32_t size, uint32_t alloc);
     void Destroy();
     int32_t FetchRead(uint32_t pos, uint32_t bytes);
     int32_t FetchWrite(uint32_t pos, uint32_t bytes, const char* fileName, int32_t lineNumber);
@@ -49,11 +52,11 @@ class CDataStore {
 
     private:
     // Member variables
-    uint8_t* m_data = nullptr;
-    uint32_t m_base = 0;
-    uint32_t m_alloc = 0;
-    uint32_t m_size = 0;
-    uint32_t m_read = -1;
+    uint8_t* m_data;
+    uint32_t m_base;
+    uint32_t m_alloc;
+    uint32_t m_size;
+    uint32_t m_read;
 };
 
 #endif
