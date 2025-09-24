@@ -49,7 +49,6 @@ class CDataStore {
     void SetSize(uint32_t size);
     uint32_t Size() const;
     uint32_t Tell() const;
-    bool Sub8CBBF0(uint32_t a2);
 
     private:
     // Member variables

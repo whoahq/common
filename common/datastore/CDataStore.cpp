@@ -411,7 +411,3 @@ uint32_t CDataStore::Size() const {
 uint32_t CDataStore::Tell() const {
     return this->m_read;
 }
-
-bool CDataStore::Sub8CBBF0(uint32_t a2) {
-    return this->m_read <= this->m_size && this->m_size - this->m_read >= a2;
-}
