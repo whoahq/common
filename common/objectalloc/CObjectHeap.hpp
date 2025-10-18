@@ -6,9 +6,9 @@
 class CObjectHeap {
     public:
     // Member variables
-    void* m_obj;
-    uint32_t* m_indexStack;
-    uint32_t m_allocated;
+    void* m_obj = nullptr;
+    uint32_t* m_indexStack = nullptr;
+    uint32_t m_allocated = 0;
 
     // Member functions
     int32_t Allocate(uint32_t objSize, uint32_t heapObjects, const char* heapName);
