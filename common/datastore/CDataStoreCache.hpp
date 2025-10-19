@@ -36,7 +36,7 @@ void CDataStoreCache<size>::InternalInitialize(uint8_t*& data, uint32_t& base, u
 template <size_t size>
 void CDataStoreCache<size>::InternalDestroy(uint8_t*& data, uint32_t& base, uint32_t& alloc) {
     if (data && data != this->m_cache) {
-        SMemFree(data);
+        STORM_FREE(data);
     }
 
     data = nullptr;
