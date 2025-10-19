@@ -2,6 +2,23 @@
 #include <cstring>
 #include <storm/Memory.hpp>
 
+CObjectHeap::CObjectHeap() {
+    this->m_obj = nullptr;
+    this->m_indexStack = nullptr;
+    this->m_allocated = 0;
+}
+
+CObjectHeap::CObjectHeap(const CObjectHeap& source) {
+    // Copy source
+    this->m_obj = source.m_obj;
+    this->m_indexStack = source.m_indexStack;
+    this->m_allocated = source.m_allocated;
+
+    // Source requires new allocation after copy
+    const_cast<CObjectHeap&>(source).m_obj = nullptr;
+    const_cast<CObjectHeap&>(source).m_indexStack = nullptr;
+}
+
 int32_t CObjectHeap::Allocate(uint32_t objSize, uint32_t heapObjects, const char* heapName) {
     this->m_obj = SMemAlloc(heapObjects * (objSize + sizeof(uint32_t)), heapName, 0, 0x0);
 
