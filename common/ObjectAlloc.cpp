@@ -49,3 +49,13 @@ uint32_t ObjectAllocAddHeap(uint32_t objectSize, uint32_t objsPerBlock, const ch
 
     return heapId;
 }
+
+void ObjectAllocDestroy() {
+    // TODO Sub4D2F90();
+
+    auto globals = GetObjAllocGlobals();
+
+    globals->objects.Clear();
+
+    ReleaseObjAllocGlobals();
+}
