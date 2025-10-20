@@ -19,6 +19,12 @@ CObjectHeap::CObjectHeap(const CObjectHeap& source) {
     const_cast<CObjectHeap&>(source).m_indexStack = nullptr;
 }
 
+CObjectHeap::~CObjectHeap() {
+    if (this->m_obj) {
+        STORM_FREE(this->m_obj);
+    }
+}
+
 int32_t CObjectHeap::Allocate(uint32_t objSize, uint32_t heapObjects, const char* heapName) {
     this->m_obj = SMemAlloc(heapObjects * (objSize + sizeof(uint32_t)), heapName, 0, 0x0);
 
