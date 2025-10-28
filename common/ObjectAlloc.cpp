@@ -61,3 +61,11 @@ void ObjectAllocDestroy() {
 
     ReleaseObjAllocGlobals();
 }
+
+void ObjectFree(uint32_t heapId, uint32_t memHandle) {
+    auto globals = GetObjAllocGlobals();
+
+    globals->objects[heapId].Delete(memHandle);
+
+    ReleaseObjAllocGlobals();
+}

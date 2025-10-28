@@ -1,5 +1,17 @@
 #include "common/objectalloc/CObjectHeapList.hpp"
-#include "storm/Error.hpp"
+#include <storm/Error.hpp>
+
+void CObjectHeapList::Delete(uint32_t index) {
+    auto heap = &this->m_heaps[index / this->m_objsPerBlock];
+
+    if (heap->m_allocated == this->m_objsPerBlock) {
+        this->m_numFullHeaps--;
+    }
+
+    heap->Delete(index % this->m_objsPerBlock, this->m_objSize, this->m_objsPerBlock);
+
+    // TODO free empty heaps
+}
 
 int32_t CObjectHeapList::New(uint32_t* index, void** a3, bool zero) {
     CObjectHeap* heap = nullptr;

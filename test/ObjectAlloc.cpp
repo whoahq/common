@@ -62,3 +62,44 @@ TEST_CASE("ObjectAlloc", "[objectalloc]") {
         ObjectAllocDestroy();
     }
 }
+
+TEST_CASE("ObjectFree", "[objectalloc]") {
+    SECTION("frees objects allocated from heap") {
+        struct Foo {
+            uint32_t field1 = 123;
+            uint32_t field2 = 456;
+        };
+
+        auto heapId = ObjectAllocAddHeap(sizeof(Foo), 1024, "Foo", true);
+
+        uint32_t foo1Handle;
+        void* foo1Mem;
+        auto foo1Result = ObjectAlloc(heapId, &foo1Handle, &foo1Mem, true);
+
+        REQUIRE(foo1Result == 1);
+        REQUIRE(foo1Handle == 0);
+
+        auto foo1 = new (foo1Mem) Foo();
+
+        foo1->field1 = 789;
+        foo1->field2 = 101;
+
+        ObjectFree(heapId, foo1Handle);
+
+        uint32_t foo2Handle;
+        void* foo2Mem;
+        auto foo2Result = ObjectAlloc(heapId, &foo2Handle, &foo2Mem, true);
+
+        REQUIRE(foo2Result == 1);
+        REQUIRE(foo2Handle == 0);
+
+        auto foo2 = new (foo2Mem) Foo();
+
+        REQUIRE(foo2->field1 == 123);
+        REQUIRE(foo2->field2 == 456);
+
+        ObjectFree(heapId, foo2Handle);
+
+        ObjectAllocDestroy();
+    }
+}

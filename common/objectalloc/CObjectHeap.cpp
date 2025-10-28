@@ -1,5 +1,6 @@
 #include "common/objectalloc/CObjectHeap.hpp"
 #include <cstring>
+#include <storm/Error.hpp>
 #include <storm/Memory.hpp>
 
 CObjectHeap::CObjectHeap() {
@@ -38,6 +39,15 @@ int32_t CObjectHeap::Allocate(uint32_t objSize, uint32_t heapObjects, const char
     this->m_allocated = 0;
 
     return this->m_obj != nullptr;
+}
+
+void CObjectHeap::Delete(uint32_t index, uint32_t objSize, uint32_t heapObjects) {
+    STORM_ASSERT(this->m_obj);
+    STORM_ASSERT(this->m_allocated);
+    STORM_ASSERT(this->m_indexStack);
+
+    this->m_allocated--;
+    this->m_indexStack[this->m_allocated] = index;
 }
 
 int32_t CObjectHeap::New(uint32_t objSize, uint32_t heapObjects, uint32_t* index, const char* heapName, void** a6, bool zero) {
