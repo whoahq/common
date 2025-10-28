@@ -40,3 +40,12 @@ TEST_CASE("RCString::GetString", "[string]") {
         REQUIRE(rcStr1.GetString() != rcStr2.GetString());
     }
 }
+
+TEST_CASE("RCString::operator const char*", "[string]") {
+    SECTION("casts a RCString object to a const char*") {
+        auto str = "foo";
+        RCString rcStr;
+        rcStr.Copy(str);
+        REQUIRE(!SStrCmp(str, (const char*)rcStr, STORM_MAX_STR));
+    }
+}
