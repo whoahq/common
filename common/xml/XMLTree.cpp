@@ -15,8 +15,7 @@ void begin_element(void* userData, const XML_Char* name, const XML_Char** atts) 
         // TODO allocate node off of node heap
         // XMLNode* node = XMLNode::s_XMLNodeHeap->GetData(0, __FILE__, __LINE__);
 
-        node = new XMLNode;
-        node->Init(tree->leaf, name);
+        node = new XMLNode(tree->leaf, name);
     }
 
     auto leaf = tree->leaf;

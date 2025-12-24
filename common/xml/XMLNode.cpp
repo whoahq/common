@@ -1,8 +1,19 @@
 #include "common/xml/XMLNode.hpp"
 #include <storm/String.hpp>
 
-XMLNode::XMLNode() {
-    // TODO
+XMLNode::XMLNode(XMLNode* parent, const char* name) {
+    this->m_parent = parent;
+    this->m_name.Copy(name);
+
+    if (this->m_parent && this->m_parent->m_body) {
+        this->m_next = nullptr;
+        this->m_userData = nullptr;
+        this->m_offset = this->m_parent->m_bodyLen;
+    } else {
+        this->m_offset = 0;
+        this->m_next = nullptr;
+        this->m_userData = nullptr;
+    }
 }
 
 XMLNode::~XMLNode() {
@@ -53,26 +64,6 @@ const char* XMLNode::GetName() const {
 
 const XMLNode* XMLNode::GetSibling() const {
     return this->m_next;
-}
-
-void XMLNode::Init(XMLNode* parent, const char* name) {
-    RCString(this->m_name);
-    TSGrowableArray<XMLAttribute>(this->m_attributes);
-    this->m_parent = parent;
-    this->m_child = nullptr;
-    this->m_name.Copy(name);
-    this->m_body = nullptr;
-    this->m_bodyLen = 0;
-
-    if (this->m_parent && this->m_parent->m_body) {
-        this->m_next = nullptr;
-        this->m_userData = nullptr;
-        this->m_offset = this->m_parent->m_bodyLen;
-    } else {
-        this->m_offset = 0;
-        this->m_next = nullptr;
-        this->m_userData = nullptr;
-    }
 }
 
 void XMLNode::SetAttribute(const char* name, const char* value) {
