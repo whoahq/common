@@ -43,7 +43,7 @@ XMLNode* XMLNode::GetChildByName(const char* name) {
     return child;
 }
 
-const char* XMLNode::GetName() {
+const char* XMLNode::GetName() const {
     return this->m_name.GetString();
 }
 
