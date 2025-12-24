@@ -25,6 +25,10 @@ const char* XMLNode::GetBody() const {
     return this->m_body;
 }
 
+const XMLNode* XMLNode::GetChild() const {
+    return this->m_child;
+}
+
 const XMLNode* XMLNode::GetChildByName(const char* name) const {
     auto child = this->m_child;
 
