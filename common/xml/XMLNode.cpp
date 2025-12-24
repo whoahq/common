@@ -9,7 +9,7 @@ XMLNode::~XMLNode() {
     // TODO
 }
 
-const char* XMLNode::GetAttributeByName(const char* name) {
+const char* XMLNode::GetAttributeByName(const char* name) const {
     for (int32_t i = 0; i < this->m_attributes.Count(); i++) {
         auto& attribute = this->m_attributes[i];
 
