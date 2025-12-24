@@ -27,6 +27,7 @@ class XMLNode {
     const XMLNode* GetChild() const;
     const XMLNode* GetChildByName(const char* name) const;
     const char* GetName() const;
+    const XMLNode* GetSibling() const;
     void Init(XMLNode* parent, const char* name);
     void SetAttribute(const char* name, const char* value);
 };

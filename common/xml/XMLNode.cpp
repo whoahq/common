@@ -51,6 +51,10 @@ const char* XMLNode::GetName() const {
     return this->m_name.GetString();
 }
 
+const XMLNode* XMLNode::GetSibling() const {
+    return this->m_next;
+}
+
 void XMLNode::Init(XMLNode* parent, const char* name) {
     RCString(this->m_name);
     TSGrowableArray<XMLAttribute>(this->m_attributes);
