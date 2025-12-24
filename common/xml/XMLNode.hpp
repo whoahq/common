@@ -11,10 +11,10 @@ class XMLNode {
     // Member variables
     void* m_userData;
     XMLNode* m_parent;
-    XMLNode* m_child = nullptr;
+    XMLNode* m_child;
     RCString m_name;
-    char* m_body = nullptr;
-    uint32_t m_bodyLen = 0;
+    char* m_body;
+    uint32_t m_bodyLen;
     TSGrowableArray<XMLAttribute> m_attributes;
     uint32_t m_offset;
     XMLNode* m_next;
@@ -28,6 +28,7 @@ class XMLNode {
     const XMLNode* GetChildByName(const char* name) const;
     const char* GetName() const;
     const XMLNode* GetSibling() const;
+    void Init(XMLNode* parent, const char* name);
     void SetAttribute(const char* name, const char* value);
 };
 
