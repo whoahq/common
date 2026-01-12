@@ -157,6 +157,47 @@ CDataStore& CDataStore::Get(float& val) {
     return *this;
 }
 
+CDataStore& CDataStore::GetArray(uint8_t* val, uint32_t count) {
+    STORM_VALIDATE_BEGIN;
+    STORM_VALIDATE(val || !count);
+    STORM_VALIDATE_END;
+
+    STORM_ASSERT(this->IsFinal());
+
+    if (this->IsValid()) {
+        auto remaining = count;
+
+        while (remaining > 0) {
+            uint32_t available = this->m_size - this->m_read;
+            uint32_t toRead = (available < remaining) ? available : remaining;
+
+            if (toRead >= this->m_alloc) {
+                toRead = this->m_alloc;
+            }
+
+            if (toRead <= 1) {
+                toRead = 1;
+            }
+
+            if (!this->FetchRead(this->m_read, toRead)) {
+                break;
+            }
+
+            auto src = this->m_data + (this->m_read - this->m_base);
+
+            if (val != src) {
+                memcpy(val, src, toRead);
+            }
+
+            remaining -= toRead;
+            val += toRead;
+            this->m_read += toRead;
+        }
+    }
+
+    return *this;
+}
+
 void CDataStore::GetBufferParams(const void** data, uint32_t* size, uint32_t* alloc) const {
     if (data) {
         *data = this->m_data;

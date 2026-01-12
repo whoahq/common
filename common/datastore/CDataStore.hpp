@@ -30,6 +30,7 @@ class CDataStore {
     CDataStore& Get(uint32_t& val);
     CDataStore& Get(uint64_t& val);
     CDataStore& Get(float& val);
+    CDataStore& GetArray(uint8_t* val, uint32_t count);
     CDataStore& GetDataInSitu(void*& val, uint32_t bytes);
     CDataStore& GetString(char* val, uint32_t maxChars);
     void Initialize();

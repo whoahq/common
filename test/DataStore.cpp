@@ -109,6 +109,29 @@ TEST_CASE("CDataStore::Get", "[datastore]") {
     }
 }
 
+TEST_CASE("CDataStore::GetArray", "[datastore]") {
+    SECTION("gets array of uint8_t") {
+        uint32_t writeVal1 = 0x12345678;
+        uint32_t writeVal2 = 0x87654321;
+        uint8_t readVal1[4];
+        uint8_t readVal2[2];
+
+        CDataStore msg;
+        msg.Put(writeVal1);
+        msg.Put(writeVal2);
+        msg.Finalize();
+        msg.GetArray(readVal1, 4);
+        msg.GetArray(readVal2, 2);
+
+        REQUIRE(readVal1[0] == 0x78);
+        REQUIRE(readVal1[1] == 0x56);
+        REQUIRE(readVal1[2] == 0x34);
+        REQUIRE(readVal1[3] == 0x12);
+        REQUIRE(readVal2[0] == 0x21);
+        REQUIRE(readVal2[1] == 0x43);
+    }
+}
+
 TEST_CASE("CDataStore::SetSize", "[datastore]") {
     SECTION("sets size") {
         uint8_t writeVal = 8;
