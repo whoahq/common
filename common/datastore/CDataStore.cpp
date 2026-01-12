@@ -158,10 +158,7 @@ CDataStore& CDataStore::Get(float& val) {
 }
 
 CDataStore& CDataStore::GetArray(uint8_t* val, uint32_t count) {
-    STORM_VALIDATE_BEGIN;
-    STORM_VALIDATE(val || !count);
-    STORM_VALIDATE_END;
-
+    STORM_ASSERT(val || !count); // TODO this is a validation macro
     STORM_ASSERT(this->IsFinal());
 
     if (this->IsValid()) {
