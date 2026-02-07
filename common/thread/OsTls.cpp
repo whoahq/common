@@ -5,13 +5,13 @@
 #include <windows.h>
 #endif
 
-#if defined(WHOA_SYSTEM_MAC) || defined(WHOA_SYSTEM_LINUX)
+#if defined(WHOA_SYSTEM_MAC) || defined(WHOA_SYSTEM_LINUX) || defined(WHOA_SYSTEM_WEB)
 #include <storm/Array.hpp>
 #include <storm/List.hpp>
 #include <pthread.h>
 #endif
 
-#if defined(WHOA_SYSTEM_MAC) || defined(WHOA_SYSTEM_LINUX)
+#if defined(WHOA_SYSTEM_MAC) || defined(WHOA_SYSTEM_LINUX) || defined(WHOA_SYSTEM_WEB)
 typedef void* TLSData;
 
 struct TLSSlot : public TSLinkedNode<TLSSlot> {
@@ -32,7 +32,7 @@ int32_t OsTlsAlloc() {
     return TlsAlloc();
 #endif
 
-#if defined(WHOA_SYSTEM_MAC) || defined(WHOA_SYSTEM_LINUX)
+#if defined(WHOA_SYSTEM_MAC) || defined(WHOA_SYSTEM_LINUX) || defined(WHOA_SYSTEM_WEB)
     OsTls::s_tlsLock.Enter();
 
     if (!OsTls::s_initialized) {
@@ -54,7 +54,7 @@ void* OsTlsGetValue(uint32_t tlsIndex) {
     return TlsGetValue(tlsIndex);
 #endif
 
-#if defined(WHOA_SYSTEM_MAC) || defined(WHOA_SYSTEM_LINUX)
+#if defined(WHOA_SYSTEM_MAC) || defined(WHOA_SYSTEM_LINUX) || defined(WHOA_SYSTEM_WEB)
     if (!OsTls::s_initialized) {
         return nullptr;
     }
@@ -84,7 +84,7 @@ int32_t OsTlsSetValue(uint32_t tlsIndex, void* tlsValue) {
     return TlsSetValue(tlsIndex, tlsValue);
 #endif
 
-#if defined(WHOA_SYSTEM_MAC) || defined(WHOA_SYSTEM_LINUX)
+#if defined(WHOA_SYSTEM_MAC) || defined(WHOA_SYSTEM_LINUX) || defined(WHOA_SYSTEM_WEB)
     if (!OsTls::s_initialized) {
         return 0;
     }
